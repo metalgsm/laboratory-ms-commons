@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.17.RELEASE</version>
+		<relativePath />
+	</parent>
+
+	<groupId>com.laboratory.ms</groupId>
+	<artifactId>laboratory-ms-parent</artifactId>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+
+	<name>laboratory-ms-parent</name>
+	<description>Laboratory MS Parent</description>
+	<url>http://www.laboratory-progmatos.com</url>
+
+	<modules>
+		<module>../laboratory-ms-base</module>
+	</modules>
+
+	<organization>
+		<name>Laboratory Prog Matos</name>
+		<url>http://www.laboratory-progmatos.com</url>
+	</organization>
+
+	<licenses>
+		<license />
+	</licenses>
+
+	<developers>
+		<developer />
+	</developers>
+
+	<scm>
+		<connection />
+		<url />
+	</scm>
+
+	<properties>
+		<java.version>1.8</java.version>
+		<laboratory-ms-commons.version>${project.version}</laboratory-ms-commons.version>
+
+		<!-- eclipse -->
+		<m2e.apt.activation>jdt_apt</m2e.apt.activation>
+
+		<!-- dependencies -->
+		<hibernate.version>5.2.17.Final</hibernate.version>
+		<lombok.version>1.18.2</lombok.version>
+		<logback.version>1.2.3</logback.version>
+		<ojdbc8.version>12.2.0.1</ojdbc8.version>
+		<cxf.version>3.2.6</cxf.version>
+		<joor.version>0.9.9</joor.version>
+		<mapstruct.version>1.2.0.Final</mapstruct.version>
+		<beanio.version>2.1.0</beanio.version>
+		<nimbus-jose-jwt.version>6.1.1</nimbus-jose-jwt.version>
+		<json-smart.version>2.3</json-smart.version>
+		<bcpkix-jdk15on.version>1.60</bcpkix-jdk15on.version>
+		<springfox.version>2.9.2</springfox.version>
+		<logstash-logback-encoder.version>5.2</logstash-logback-encoder.version>
+
+		<!-- plugins configurations -->
+		<!-- versions-maven-plugin -->
+		<generateBackupPoms>false</generateBackupPoms>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.laboratory.ms</groupId>
+				<artifactId>laboratory-ms-base</artifactId>
+				<version>${laboratory-ms-commons.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.oracle.jdbc</groupId>
+				<artifactId>ojdbc8</artifactId>
+				<version>${ojdbc8.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-rt-frontend-jaxws</artifactId>
+				<version>${cxf.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-rt-features-logging</artifactId>
+				<version>${cxf.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-rt-transports-http</artifactId>
+				<version>${cxf.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jooq</groupId>
+				<artifactId>joor-java-8</artifactId>
+				<version>${joor.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mapstruct</groupId>
+				<artifactId>mapstruct-jdk8</artifactId>
+				<version>${mapstruct.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mapstruct</groupId>
+				<artifactId>mapstruct-processor</artifactId>
+				<version>${mapstruct.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.beanio</groupId>
+				<artifactId>beanio</artifactId>
+				<version>${beanio.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.nimbusds</groupId>
+				<artifactId>nimbus-jose-jwt</artifactId>
+				<version>${nimbus-jose-jwt.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.minidev</groupId>
+				<artifactId>json-smart</artifactId>
+				<version>${json-smart.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.bouncycastle</groupId>
+				<artifactId>bcpkix-jdk15on</artifactId>
+				<version>${bcpkix-jdk15on.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-swagger2</artifactId>
+				<version>${springfox.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.mapstruct</groupId>
+						<artifactId>mapstruct</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-swagger-ui</artifactId>
+				<version>${springfox.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.logstash.logback</groupId>
+				<artifactId>logstash-logback-encoder</artifactId>
+				<version>${logstash-logback-encoder.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+					<executions>
+						<execution>
+							<goals>
+								<goal>build-info</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<executions>
+						<execution>
+							<id>attach-sources</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>jar-no-fork</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-report-plugin</artifactId>
+					<version>${maven-surefire-plugin.version}</version>
+					<executions>
+						<execution>
+							<phase>test</phase>
+							<goals>
+								<goal>report</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

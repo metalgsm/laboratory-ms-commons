@@ -1,0 +1,109 @@
+= Laboratory MS Base
+: toc:
+: toc-title: Summary
+
+Design with features common to microservices.
+
+== Configuration for Controllers default exception handling
+Define a bean of type `com.laboratory.ms.base.web.DefaultControllerAdvice`.
+
+[source, java]
+----
+@Bean
+DefaultControllerAdvice defaultControllerAdvice () {
+    return new DefaultControllerAdvice ();
+}
+----
+
+== Configuration for Controllers Event Log
+Define a bean of type `com.laboratory.ms.base.web.MdcFilter`.
+
+[source, java]
+----
+@Bean
+@Order (Ordered.HIGHEST_PRECEDENCE + 100)
+MdcFilter mdcFilter () {
+    return new MdcFilter ();
+}
+----
+
+== Configuration for Controllers request and response logging
+Define one bean for each type below:
+
+* `com.laboratory.ms.base.web.ResponseLoggingFilter`
+* `com.laboratory.ms.base.web.RequestLoggingFilter`
+
+[source, java]
+----
+@Bean
+// XXX Must be before RequestLoggingFilter, as logging happens after doFilter ()
+@Order (Ordered.HIGHEST_PRECEDENCE + 200)
+ResponseLoggingFilter responseLoggingFilter () {
+    return new ResponseLoggingFilter ();
+}
+
+@Bean
+// XXX Must be after ResponseLoggingFilter, as logging happens after doFilter ()
+@Order (Ordered.HIGHEST_PRECEDENCE + 300)
+RequestLoggingFilter requestLoggingFilter () {
+    return new RequestLoggingFilter ();
+}
+----
+
+Set the log level to `DEBUG`.
+
+[source, yaml]
+.application.yml
+----
+logging:
+  level:
+    com.laboratory.ms.base.web.RequestLoggingFilter: DEBUG
+    ccom.laboratory.ms.base.web.ResponseLoggingFilter: DEBUG
+----
+
+== Configuration for REST client request and response log
+Set up `org.springframework.web.client.RestTemplate` with` org.springframework.http.client.BufferingClientHttpRequestFactory` and `com.laboratory.ms.base.service.RestTemplateLoggingInterceptor`.
+
+[source, java]
+----
+ClientHttpRequestFactory requestFactory = new BufferingClientHttpRequestFactory (originalRequestFactory);
+
+RestTemplate restTemplate = builder.requestFactory (requestFactory) .additionalInterceptors (new RestTemplateLoggingInterceptor ())
+        .build ();
+----
+
+Set the log level to `DEBUG`.
+
+[source, yaml]
+.application.yml
+----
+logging:
+  level:
+    com.laboratory.ms.base.service.RestTemplateLoggingInterceptor: DEBUG
+----
+
+== Configuration for event logging of queues
+Define a bean of type `org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory` named` rabbitListenerContainerFactory` and with advice of type `com.laboratory.ms.base.service.queue.QueueMdcAdvice`.
+
+[source, java]
+----
+@Bean (name = "rabbitListenerContainerFactory")
+public SimpleRabbitListenerContainerFactory simpleRabbitListenerContainerFactory (
+        SimpleRabbitListenerContainerFactoryConfigurer configurer, ConnectionFactory connectionFactory) {
+    SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory ();
+    configurer.configure (factory, connectionFactory);
+    factory.setAdviceChain (new QueueMdcAdvice ());
+    return factory;
+}
+----
+
+Include the lib `org.jooq: joor-java-8` dependency.
+
+[source, xml]
+.pom.xml
+----
+<dependency>
+<groupId> org.jooq </groupId>
+<artifactId> joor-java-8 </artifactId>
+</dependency>
+----

@@ -1,0 +1,3 @@
+= Laboratory MS Parent
+
+Parent project for microservices, with settings and configurations of dependencies and plugins.
