@@ -1,3 +1,4 @@
 = Laboratory MS Parent
 
 Parent project for microservices, with settings and configurations of dependencies and plugins.
+Parent needs to be deploy, please set up a repository (archiva recommended).

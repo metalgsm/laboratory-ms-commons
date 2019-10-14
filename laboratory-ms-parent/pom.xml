@@ -216,4 +216,16 @@
 		</plugins>
 	</build>
 
+	<distributionManagement>
+		<repository>
+			<id>archiva</id>
+			<name>Archiva Managed</name>
+			<url>http://localhost:6060/repository/</url>
+		</repository>
+		<snapshotRepository>
+			<id>archiva.snapshots</id>
+			<name>Archiva Managed Snapshot</name>
+			<url>http://localhost:6060/repository/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
 </project>
