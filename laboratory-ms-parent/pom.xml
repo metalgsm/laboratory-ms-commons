@@ -57,7 +57,7 @@
 		<joor.version>0.9.9</joor.version>
 		<mapstruct.version>1.2.0.Final</mapstruct.version>
 		<beanio.version>2.1.0</beanio.version>
-		<nimbus-jose-jwt.version>6.1.1</nimbus-jose-jwt.version>
+		<nimbus-jose-jwt.version>7.9</nimbus-jose-jwt.version>
 		<json-smart.version>2.3</json-smart.version>
 		<bcpkix-jdk15on.version>1.60</bcpkix-jdk15on.version>
 		<springfox.version>2.9.2</springfox.version>
